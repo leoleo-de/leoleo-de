@@ -1,6 +1,6 @@
 # Die relevanten funktionalen Interfaces für Stream-Methoden
 In den Methoden in der Klasse Stream kommen einige wichtige funktionale Interfaces vor, die wir uns hier anschauen wollen.
-Einen schänen Überblick (in Englisch allerdings) findet man auch bei Bealdung z.B.: https://www.baeldung.com/java-8-functional-interfaces 
+Einen schönen Überblick (in Englisch allerdings) findet man auch bei Bealdung z.B.: https://www.baeldung.com/java-8-functional-interfaces 
 
 Vorasugeschickt sei ein Zitat aus der Javadoc des JDK zum package _java.util.function_:
 ```qute
