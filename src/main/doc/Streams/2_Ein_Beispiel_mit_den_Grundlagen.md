@@ -30,19 +30,26 @@ Um es besser zu verstehen gehen wir es hier einzeln durch mit Kommentaren:
 ```java
     // 1. Alle Dateien als Stream sammeln und filtern auf Endung
     Stream<File> allFiles = allFilesInFolder(new File(".")).filter(f -> f.getPath().endsWith(".java"));
+
     // 2. jedes File mappen auf den Pfad, den wir gleich als Input brauchen
     Stream<Path> allPaths = allFiles.map(File::toPath);
+    
     // 3. aus jedem File die Zeilen lesen
     Stream<List<String>> linesLists = allPaths.map(EinBeispiel::allLinesInFile);
+    
     // 4. Die Zeilen aus allen Listen in einen Stream aus Zeilen packen
     Stream<String> allLines = linesLists.flatMap(List::stream);
+    
     // 5. Die Wörter aus den Zeilen in einen Stream packen
     Stream<String> allWords = allLines.flatMap(line -> Stream.of(line.split(" "))).map(w-> {return w.toLowerCase();});
+    
     // 6. Die Wörter ausfiltern, die nur aus Whitespace bestehen
     Stream<String> nonEmptyWords = allWords.filter(w -> !w.trim().isEmpty());
+    
     // 7. wir zählen im als SeiteEffekt in map() mal die Wörter in einer statischen Klassenvariable - während wir sonst nix machen, außer den Input wieder als Output rauszugeben
     nonEmptyWords = nonEmptyWords.map(w -> {EinBeispiel.wordCount++; return w;});
     System.out.println("Seiteneffekt wordCount (noch 0) = " + EinBeispiel.wordCount); // nur als Beispiel-Fallstrick: das wird hier noch 0 ergeben, weil die intermediate operation gar nicht ausgeführt wurde ...
+    
     // 8. Zählen, aber auch noch schnell mal untereinander ausgeben zur Kontrolle
     System.out.println("-----------------------------");
     System.out.println("Anzahl Woerter :" + nonEmptyWords.peek(System.out::println).count());
