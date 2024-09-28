@@ -1,6 +1,11 @@
 
+# Some Theory first
+Frei nach der Feuerzangenbowle und der Sache mit der Dampfmaschine:  
+<b>Da stellen wir uns mal ganz dumm und sagen:  "Ein Stream ist ein Fluss von irgendwelchen Objekten durch ein virtuelles Rohr."</b>  
+Um das ganze Konzept besser mit dem Verstand "greifen" zu können, tun wir mal so, als wäre es unsere Idee:
 
-Idee: Wir wollen in Java so schöne Verkettungen bilden wir mit den Piepelines in der Shell bei Unix/Linux-Systemen.
+
+### Idee: Wir wollen in Java so schöne Verkettungen bilden wie mit den Piepelines in der Shell bei Unix/Linux-Systemen.
 
 Dazu erfinden wir einen Typ von Objekten, den wir Streams nennen und der eine Folge von Objekten order primitiven Typen darstellt.
 
@@ -25,9 +30,9 @@ die den Stream aufnimmt, aber dann ein nicht-Stream-Objekt auswirft (z.B. eine C
 Die gesamte Pipeline wird von der JVM nicht Stück für Stück ausgeführt, sondern "lazily" in den Speicher geladen,  
 um sie dann auszuführen, wenn die terminal operation ausgeführt werden soll.  
 
-Beispiel für 
+### Beispiele 
 
-a) intermediate operatione:  
+a) intermediate operationen:  
    ```Java
       map(), flatMap(), filter(), distinct(), sorted(), limit(), skip(), peek()
    ```
@@ -39,6 +44,7 @@ b) terminal operations:
 <br/> 
 <br/>
       
+### Arten von Streams
 Es gibt Streams fuer Objekte und auch Spezialstreams für einfache Typen wie int, long oder double, die sich von BaseStream ableiten: 
 
 ![img_2.png](img_2.png)
