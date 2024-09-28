@@ -55,10 +55,18 @@ Eine lambda-Expression kann ein FunctionalInterface implementieren - insbesonder
 ```
 
 ## Function identity
+Der einfache und manchmal praktische Fall, dass man genau das Input-Element wieder als Output haben möchte.
+Es gilt quasi
+```java  
+    Function identity = t -> t;
+```
+
+Das ist an manchen Stellen praktisch, um z.B. eine Default-Transformation anzubieten.
 
 
-## Function compose
-Das Interface _Function_ hat noch eine zweite Methode
+## Function compose and andThen
+### compose
+Das Interface _Function_ hat noch zwei weitere Methoden
 ```java
 default <V> Function<V, R> compose(Function<? super V, ? extends T> before) {
         Objects.requireNonNull(before);
@@ -77,10 +85,17 @@ The Function interface also has a default compose method that allows us to combi
     
 The quoteIntToString function is a combination of the quote function applied to a result of the intToString function.     
 ```
+und außerdem 
+### andThen
+```java
+default Consumer<T> andThen(Consumer<? super T> after) {
+        Objects.requireNonNull(after);
+        return (T t) -> { accept(t); after.accept(t); };
+    }
+```
 
-
-
-## Function andThen
+Auch damit kann man wieder Funktionen kombinieren, mit andThen-Logik.
+Dagegen war die Logik bei compose eine before-Logik.
 
 
 
