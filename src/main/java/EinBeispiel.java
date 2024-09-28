@@ -4,6 +4,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 public class EinBeispiel {
@@ -56,7 +57,7 @@ public class EinBeispiel {
 
     /**
      * Hilfsmethode, die den Code zum rekursiven Sammeln aller Files in einem Verzeichnis kapselt. <br>
-     * Schamlos geklaut von http://web.mit.edu/6.031/www/fa17/classes/26-map-filter-reduce/
+     * Schamlos geklaut von <a href="http://web.mit.edu/6.031/www/fa17/classes/26-map-filter-reduce/">http://web.mit.edu</a>
      *
      * @param folder
      * @return Stream<File>
@@ -71,7 +72,7 @@ public class EinBeispiel {
 
     /**
      * Files.readAllLines() ausgelagert in diese Hilfsmethode, um die IOException abzuschütteln.
-     * @param path
+     * @param path path to file
      * @return List<String>
      */
     static List<String> allLinesInFile(Path path){
