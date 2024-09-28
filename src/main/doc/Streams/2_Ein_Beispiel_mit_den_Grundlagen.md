@@ -37,20 +37,23 @@ Um es besser zu verstehen gehen wir es hier einzeln durch mit Kommentaren:
     // 3. aus jedem File die Zeilen lesen
     Stream<List<String>> linesLists = allPaths.map(EinBeispiel::allLinesInFile);
     
-    // 4. Die Zeilen aus allen Listen in einen Stream aus Zeilen packen
+    // 4. Die Zeilen aus allen Listen in einen Stream aus Zeilen flachklopfen
     Stream<String> allLines = linesLists.flatMap(List::stream);
     
-    // 5. Die Wörter aus den Zeilen in einen Stream packen
-    Stream<String> allWords = allLines.flatMap(line -> Stream.of(line.split(" "))).map(w-> {return w.toLowerCase();});
+    // 5. Die Zeilen in Arrays aus Strings (Wörtern) splitten
+    Stream<String[]> allLinesAsStringArray = allLines.map(line -> line.split(" "));
     
-    // 6. Die Wörter ausfiltern, die nur aus Whitespace bestehen
+    // 6. Die Wörter aus den StringArrays in einen Stream aus Strings flachlopfen und in lower case umwandeln
+    Stream<String> allWords = allLinesAsStringArray.flatMap(Arrays::stream).map(String::toLowerCase);
+    
+    // 7. Die Wörter ausfiltern, die nur aus Whitespace bestehen
     Stream<String> nonEmptyWords = allWords.filter(w -> !w.trim().isEmpty());
-    
-    // 7. wir zählen im als SeiteEffekt in map() mal die Wörter in einer statischen Klassenvariable - während wir sonst nix machen, außer den Input wieder als Output rauszugeben
+
+    // 8. wir zählen im als SeiteEffekt in map() mal die Wörter in einer statischen Klassenvariable - während wir sonst nix machen, außer den Input wieder als Output rauszugeben
     nonEmptyWords = nonEmptyWords.map(w -> {EinBeispiel.wordCount++; return w;});
     System.out.println("Seiteneffekt wordCount (noch 0) = " + EinBeispiel.wordCount); // nur als Beispiel-Fallstrick: das wird hier noch 0 ergeben, weil die intermediate operation gar nicht ausgeführt wurde ...
-    
-    // 8. Zählen, aber auch noch schnell mal untereinander ausgeben zur Kontrolle
+
+    // 9. Zählen, aber auch noch schnell mal untereinander ausgeben zur Kontrolle
     System.out.println("-----------------------------");
     System.out.println("Anzahl Woerter :" + nonEmptyWords.peek(System.out::println).count());
     System.out.println("Seiteneffekt wordCount = " + EinBeispiel.wordCount); // Erst hier wäre der Zähler aus dem Seiteneffekt gefüllt nach der terminal operation
